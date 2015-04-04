@@ -1,5 +1,6 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
+#include <QVector3D>
 
 #include "camera.h"
 #include "cameramatriceswidget.h"
@@ -86,5 +87,9 @@ void CameraMatricesWidget::buildProgram()
     _modelviewMatrixLoc = _program->uniformLocation("mvMatrix");
     _normalMatrixLoc = _program->uniformLocation("normalMatrix");
     _lightPosLoc = _program->uniformLocation("lightPos");
+
+    _program->setUniformValue(_lightPosLoc, QVector3D(0, 0, 70));
+    _vao.create();
+
     _program->release();
 }

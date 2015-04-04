@@ -1,6 +1,7 @@
 #ifndef CAMERAMATRICESWIDGET_H
 #define CAMERAMATRICESWIDGET_H
 
+#include <QOpenGLVertexArrayObject>
 #include <QOpenGLWidget>
 #include <QMatrix4x4>
 
@@ -27,6 +28,7 @@ protected:
 
 private:
     QOpenGLShaderProgram* _program;
+    QOpenGLVertexArrayObject _vao;
 
     QMatrix4x4 _projectionMatrix;
     QMatrix4x4 _worldMatrix;
