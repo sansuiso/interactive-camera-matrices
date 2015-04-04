@@ -7,12 +7,17 @@
 CameraMatricesWidget::CameraMatricesWidget(QWidget *parent)
     : QOpenGLWidget(parent), _program(nullptr)
 {
-    _camera = new Camera(1920, 1080);
+    _camera = new Camera(800, 600);
 }
 
 CameraMatricesWidget::~CameraMatricesWidget()
 {
     delete _camera;
+}
+
+QSize CameraMatricesWidget::sizeHint() const
+{
+    return QSize(_camera->pixelsWide(), _camera->pixelsHigh());
 }
 
 void CameraMatricesWidget::initializeGL()

@@ -14,6 +14,9 @@ public:
     void setPixelSize(float microns);
     void setPixelMatrixSize(int width, int height);
 
+    int pixelsWide() const;
+    int pixelsHigh() const;
+
 private:
     int _pixelsWide;
     int _pixelsHigh;
