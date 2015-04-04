@@ -28,7 +28,18 @@ protected:
 private:
     QOpenGLShaderProgram* _program;
 
+    QMatrix4x4 _projectionMatrix;
+    QMatrix4x4 _worldMatrix;
+    QMatrix4x4 _cameraMatrix;
+
+    int _projectionMatrixLoc;
+    int _modelviewMatrixLoc;
+    int _normalMatrixLoc;
+    int _lightPosLoc;
+
     Camera* _camera;
+
+    void buildProgram();
 };
 
 #endif // CAMERAMATRICESWIDGET_H

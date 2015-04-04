@@ -9,10 +9,10 @@ int main(int argc, char *argv[])
 
     QSurfaceFormat format;
     format.setDepthBufferSize(24);
-    QSurfaceFormat::setDefaultFormat(format);
-
     format.setVersion(3, 2);
     format.setProfile(QSurfaceFormat::CoreProfile);
+
+    QSurfaceFormat::setDefaultFormat(format);
 
     MainWindow w;
     w.resize(w.sizeHint());
