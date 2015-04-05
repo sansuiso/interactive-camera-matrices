@@ -1,6 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include <Eigen/Core>
 
 class Camera
 {
@@ -16,6 +17,8 @@ public:
 
     int pixelsWide() const;
     int pixelsHigh() const;
+
+    Eigen::Matrix4f extrinsic();
 
 private:
     int _pixelsWide;

@@ -20,3 +20,8 @@ int Camera::pixelsHigh() const
 {
     return _pixelsHigh;
 }
+
+Eigen::Matrix4f Camera::extrinsic()
+{
+    return Eigen::Matrix4f::Identity();
+}

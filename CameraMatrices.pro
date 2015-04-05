@@ -22,3 +22,5 @@ HEADERS  += mainwindow.h \
     camera.h
 
 macx:QMAKE_CXXFLAGS += -std=c++11
+
+macx:INCLUDEPATH += /usr/local/include/eigen3
