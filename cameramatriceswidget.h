@@ -36,6 +36,7 @@ private:
     QMatrix4x4 _worldMatrix;
     QMatrix4x4 _cameraMatrix;
 
+    int _extrinsicLoc;
     int _projectionMatrixLoc;
     int _modelviewMatrixLoc;
     int _normalMatrixLoc;

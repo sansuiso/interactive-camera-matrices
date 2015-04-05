@@ -42,9 +42,10 @@ static GLfloat const data3d[] = {
 
 static const char *vertexShaderSourceCore =
     "#version 150\n"
+    "uniform mat4 extrinsic;\n"
     "in vec3 vertex;\n"
     "void main() {\n"
-    "   gl_Position = vec4(vertex, 1);\n"
+    "   gl_Position = extrinsic * vec4(vertex, 1);\n"
     "}\n";
 
 static const char *fragmentShaderSourceCore =
@@ -89,6 +90,11 @@ void CameraMatricesWidget::paintGL()
     QOpenGLVertexArrayObject::Binder vaoBinder(&_vao);
     _program->bind();
 
+    QMatrix4x4 extrinsic;
+    extrinsic.setToIdentity();
+
+    _program->setUniformValue(_extrinsicLoc, extrinsic);
+
 //    _program->setUniformValue(_projectionMatrixLoc, _projectionMatrix);
 //    _program->setUniformValue(_modelviewMatrixLoc, _cameraMatrix * _worldMatrix);
 //    QMatrix3x3 normalMatrix = _worldMatrix.normalMatrix();
@@ -121,6 +127,8 @@ void CameraMatricesWidget::buildProgram()
     _program->link();
 
     _program->bind();
+    _extrinsicLoc = _program->uniformLocation("extrinsic");
+
 //    _projectionMatrixLoc = _program->uniformLocation("projMatrix");
 //    _modelviewMatrixLoc = _program->uniformLocation("mvMatrix");
 //    _normalMatrixLoc = _program->uniformLocation("normalMatrix");
