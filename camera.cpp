@@ -32,9 +32,22 @@ void Camera::setWorldPosition(float x, float y, float z)
 
 void Camera::setWorldOrientation(float theta_x, float theta_y, float theta_z)
 {
-    _theta_x = theta_x;
-    _theta_y = theta_y;
-    _theta_z = theta_z;
+    struct deg2rad
+    {
+        deg2rad(float degrees)
+        {
+            while(degrees > 360.0f) degrees -= 360.0f;
+            while(degrees < 0.0f) degrees += 360.0f;
+
+            value = M_PI * degrees / 180.0f;
+        }
+
+        float value;
+    };
+
+    _theta_x = deg2rad(theta_x).value;
+    _theta_y = deg2rad(theta_y).value;
+    _theta_z = deg2rad(theta_z).value;
 }
 
 Eigen::Matrix4f Camera::extrinsic()
