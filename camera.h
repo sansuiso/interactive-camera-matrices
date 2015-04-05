@@ -24,6 +24,8 @@ private:
     int _pixelsWide;
     int _pixelsHigh;
     float _micronsPerPixel;
+
+    float _x, _y, _z;
 };
 
 #endif // CAMERA_H
