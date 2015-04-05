@@ -6,6 +6,8 @@
 #include <QOpenGLWidget>
 #include <QMatrix4x4>
 
+#include "threedobject.h"
+
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
 QT_FORWARD_DECLARE_CLASS(Camera)
 
@@ -45,6 +47,8 @@ private:
     Camera* _camera;
 
     void buildProgram();
+
+    ThreeDObject _scene;
 };
 
 #endif // CAMERAMATRICESWIDGET_H

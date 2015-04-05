@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     cameramatriceswidget.cpp \
-    camera.cpp
+    camera.cpp \
+    threedobject.cpp
 
 HEADERS  += mainwindow.h \
     cameramatriceswidget.h \
-    camera.h
+    camera.h \
+    threedobject.h
 
 macx:QMAKE_CXXFLAGS += -std=c++11
 

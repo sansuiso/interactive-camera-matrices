@@ -5,12 +5,6 @@
 #include "camera.h"
 #include "cameramatriceswidget.h"
 
-static GLfloat const data3d[] = {
-    0.0f, 1.0f, 0.0f,
-    -1.0f, -1.0f, 0.0f,
-    1.0f, -1.0f, 0.0f,
-};
-
 //static const char *vertexShaderSourceCore =
 //    "#version 150\n"
 //    "in vec4 vertex;\n"
@@ -104,7 +98,7 @@ void CameraMatricesWidget::paintGL()
 //    QMatrix3x3 normalMatrix = _worldMatrix.normalMatrix();
 //    _program->setUniformValue(_normalMatrixLoc, normalMatrix);
 
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, _scene.vertexCount());
 
     _program->release();
 }
@@ -146,7 +140,7 @@ void CameraMatricesWidget::buildProgram()
     _vbo.create();
     _vbo.bind();
 
-    _vbo.allocate(data3d, sizeof(data3d));
+    _vbo.allocate(_scene.data(), sizeof(GLfloat)*_scene.vertexCount());
 
     QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
     f->glEnableVertexAttribArray(0);
