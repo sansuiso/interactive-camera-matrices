@@ -26,6 +26,7 @@ private:
     float _micronsPerPixel;
 
     float _x, _y, _z;
+    float _theta_x, _theta_y, _theta_z;
 };
 
 #endif // CAMERA_H
