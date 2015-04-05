@@ -3,7 +3,7 @@
 
 Camera::Camera(int pixelsWide, int pixelsHigh)
     : _pixelsWide(pixelsWide), _pixelsHigh(pixelsHigh), _micronsPerPixel(3)
-    , _x(0), _y(0), _z(0), _theta_x(0), _theta_y(M_PI_4), _theta_z(0)
+    , _x(0), _y(0), _z(0), _theta_x(0), _theta_y(0), _theta_z(0)
 {
 
 }
