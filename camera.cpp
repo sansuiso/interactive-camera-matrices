@@ -13,6 +13,12 @@ Camera::~Camera()
 
 }
 
+void Camera::setPixelMatrixSize(int width, int height)
+{
+    _pixelsWide = width;
+    _pixelsHigh = height;
+}
+
 int Camera::pixelsWide() const
 {
     return _pixelsWide;

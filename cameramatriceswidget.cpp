@@ -105,8 +105,7 @@ void CameraMatricesWidget::paintGL()
 
 void CameraMatricesWidget::resizeGL(int width, int height)
 {
-    Q_UNUSED(width);
-    Q_UNUSED(height);
+    _camera->setPixelMatrixSize(width, height);
 }
 
 void CameraMatricesWidget::buildProgram()
