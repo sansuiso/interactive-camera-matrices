@@ -18,7 +18,13 @@ public:
     int pixelsWide() const;
     int pixelsHigh() const;
 
+    void setFocalLength(float f_mm) {
+        _focalLength = f_mm;
+    }
+
+    Eigen::Matrix3f intrinsic();
     Eigen::Matrix4f extrinsic();
+    Eigen::Matrix4f projection();
 
 private:
     int _pixelsWide;
@@ -27,6 +33,7 @@ private:
 
     float _x, _y, _z;
     float _theta_x, _theta_y, _theta_z;
+    float _focalLength;
 };
 
 #endif // CAMERA_H

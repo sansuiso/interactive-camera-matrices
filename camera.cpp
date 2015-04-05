@@ -56,6 +56,19 @@ void Camera::setWorldOrientation(float theta_x, float theta_y, float theta_z)
     _theta_z = deg2rad(theta_z).value;
 }
 
+Eigen::Matrix3f Camera::intrinsic()
+{
+    Eigen::Matrix3f K = Eigen::Matrix3f::Identity();
+
+    K(0,0) = (_focalLength*1e-3f) * (_micronsPerPixel*1e-6);
+    K(1,1) = (_focalLength*1e-3f) * (_micronsPerPixel*1e-6);
+
+    K(0,2) = _pixelsWide/2;
+    K(1,2) = _pixelsHigh/2;
+
+    return K;
+}
+
 Eigen::Matrix4f Camera::extrinsic()
 {
     Eigen::Matrix4f translation = Eigen::Matrix4f::Identity();
@@ -87,4 +100,9 @@ Eigen::Matrix4f Camera::extrinsic()
     orientation.block(0, 0, 3, 3) = Rc.transpose();
 
     return orientation * translation;
+}
+
+Eigen::Matrix4f Camera::projection()
+{
+    return Eigen::Matrix4f::Identity();
 }
