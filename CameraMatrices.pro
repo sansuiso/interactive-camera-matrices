@@ -26,3 +26,10 @@ HEADERS  += mainwindow.h \
 macx:QMAKE_CXXFLAGS += -std=c++11
 
 macx:INCLUDEPATH += /usr/local/include/eigen3
+
+RESOURCES += \
+    core-profile.qrc
+
+DISTFILES += \
+    simple.vert \
+    simple.frag
