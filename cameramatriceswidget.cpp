@@ -48,7 +48,8 @@ void CameraMatricesWidget::paintGL()
     _projectionMatrix.data()[14] = -(_far + _near)/(_far - _near);
 
     _camera->setWorldPosition(0, 0, 0);
-    Eigen::Matrix4f extrinsic = _camera->extrinsic();
+    Eigen::Matrix4f extrinsic = _camera->projection();
+
     QMatrix4x4 extr(
                 extrinsic(0,0), extrinsic(1,0), extrinsic(2,0), extrinsic(3,0),
                 extrinsic(0,1), extrinsic(1,1), extrinsic(2,1), extrinsic(3,1),
