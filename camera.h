@@ -22,6 +22,22 @@ public:
         _focalLength = f_mm;
     }
 
+    float cameraPlaneOriginX() const {
+        return _cameraPlaneOriginX;
+    }
+
+    void setCameraPlaneOriginX(float x) {
+        _cameraPlaneOriginX = x;
+    }
+
+    float cameraPlaneOriginY() const {
+        return _cameraPlaneOriginY;
+    }
+
+    void setCameraPlaneOriginY(float y) {
+        _cameraPlaneOriginY = y;
+    }
+
     Eigen::Matrix3f intrinsic();
     Eigen::Matrix4f extrinsic();
     Eigen::Matrix4f projection();
@@ -34,6 +50,9 @@ private:
     float _x, _y, _z;
     float _theta_x, _theta_y, _theta_z;
     float _focalLength;
+
+    float _cameraPlaneOriginX;
+    float _cameraPlaneOriginY;
 };
 
 #endif // CAMERA_H

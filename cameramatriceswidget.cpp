@@ -42,8 +42,13 @@ void CameraMatricesWidget::paintGL()
     _program->bind();
 
     _projectionMatrix.setToIdentity();
+
     _projectionMatrix.data()[0] = 2.0f/this->size().width();
+    _projectionMatrix.data()[8] = _camera->cameraPlaneOriginX()/this->size().width()/2;
+
     _projectionMatrix.data()[5] = 2.0f/this->size().height();
+    _projectionMatrix.data()[9] = _camera->cameraPlaneOriginY()/this->size().height()/2;
+
     _projectionMatrix.data()[10] = -2.0f/(_far - _near); // Invert z-axis to take into account OpenGL z-convention
     _projectionMatrix.data()[14] = -(_far + _near)/(_far - _near);
 

@@ -4,7 +4,7 @@
 Camera::Camera(int pixelsWide, int pixelsHigh)
     : _pixelsWide(pixelsWide), _pixelsHigh(pixelsHigh), _micronsPerPixel(3)
     , _x(0), _y(0), _z(0), _theta_x(0), _theta_y(0), _theta_z(0)
-    , _focalLength(1)
+    , _focalLength(1), _cameraPlaneOriginX(0), _cameraPlaneOriginY(0)
 {
 
 }
@@ -64,8 +64,8 @@ Eigen::Matrix3f Camera::intrinsic()
     K(0,0) = (_focalLength*1e-3f) / (_micronsPerPixel*1e-6);
     K(1,1) = (_focalLength*1e-3f) / (_micronsPerPixel*1e-6);
 
-    K(0,2) = -_pixelsWide/2;
-    K(1,2) = -_pixelsHigh/2;
+    K(0,2) = -cameraPlaneOriginX();
+    K(1,2) = -cameraPlaneOriginY();
 
     return K;
 }
@@ -117,6 +117,9 @@ Eigen::Matrix4f Camera::projection()
     Eigen::Matrix4f extendedK = Eigen::Matrix4f::Zero();
     extendedK(0,0) = K(0,0);
     extendedK(1,1) = K(1,1);
+
+    extendedK(0,2) = K(0,2);
+    extendedK(1,2) = K(1,2);
 
     // Preserve z
     extendedK(2, 2) = 1;
