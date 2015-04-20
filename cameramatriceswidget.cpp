@@ -43,6 +43,8 @@ void CameraMatricesWidget::paintGL()
     _program->bind();
 
     _projectionMatrix.setToIdentity();
+    _projectionMatrix.data()[0] = 2.0f/this->size().width();
+    _projectionMatrix.data()[5] = 2.0f/this->size().height();
 
     _camera->setWorldPosition(0, 0, 0);
     Eigen::Matrix4f extrinsic = _camera->extrinsic();
