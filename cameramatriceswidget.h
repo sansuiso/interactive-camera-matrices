@@ -49,6 +49,8 @@ private:
     void buildProgram();
 
     ThreeDObject _scene;
+    float _near;
+    float _far;
 };
 
 #endif // CAMERAMATRICESWIDGET_H

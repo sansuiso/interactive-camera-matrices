@@ -7,6 +7,7 @@
 
 CameraMatricesWidget::CameraMatricesWidget(QWidget *parent)
     : QOpenGLWidget(parent), _program(nullptr)
+    , _near(1e-1f), _far(1e2f)
 {
     _camera = new Camera(800, 600);
 }
@@ -43,6 +44,8 @@ void CameraMatricesWidget::paintGL()
     _projectionMatrix.setToIdentity();
     _projectionMatrix.data()[0] = 2.0f/this->size().width();
     _projectionMatrix.data()[5] = 2.0f/this->size().height();
+    _projectionMatrix.data()[10] = -2.0f/(_far - _near); // Invert z-axis to take into account OpenGL z-convention
+    _projectionMatrix.data()[14] = -(_far + _near)/(_far - _near);
 
     _camera->setWorldPosition(0, 0, 0);
     Eigen::Matrix4f extrinsic = _camera->extrinsic();
