@@ -42,6 +42,8 @@ void CameraMatricesWidget::paintGL()
     QOpenGLVertexArrayObject::Binder vaoBinder(&_vao);
     _program->bind();
 
+    _projectionMatrix.setToIdentity();
+
     _camera->setWorldPosition(0, 0, 0);
     Eigen::Matrix4f extrinsic = _camera->extrinsic();
     QMatrix4x4 extr(
@@ -50,7 +52,9 @@ void CameraMatricesWidget::paintGL()
                 extrinsic(0,2), extrinsic(1,2), extrinsic(2,2), extrinsic(3,2),
                 extrinsic(0,3), extrinsic(1,3), extrinsic(2,3), extrinsic(3,3)
                 );
+
     _program->setUniformValue(_extrinsicLoc, extr);
+    _program->setUniformValue(_projectionMatrixLoc, _projectionMatrix);
 
     glDrawArrays(GL_TRIANGLES, 0, _scene.vertexCount());
 
@@ -82,7 +86,8 @@ void CameraMatricesWidget::buildProgram()
     _program->bind();
     _extrinsicLoc = _program->uniformLocation("extrinsic");
 
-//    _projectionMatrixLoc = _program->uniformLocation("projMatrix");
+    _projectionMatrixLoc = _program->uniformLocation("projection");
+
 //    _modelviewMatrixLoc = _program->uniformLocation("mvMatrix");
 //    _normalMatrixLoc = _program->uniformLocation("normalMatrix");
 //    _lightPosLoc = _program->uniformLocation("lightPos");
