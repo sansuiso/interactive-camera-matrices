@@ -9,8 +9,6 @@ CameraMatricesWidget::CameraMatricesWidget(QWidget *parent)
     : QOpenGLWidget(parent), _program(nullptr)
 {
     _camera = new Camera(800, 600);
-    _width = this->size().width();
-    _height = this->size().height();
 }
 
 CameraMatricesWidget::~CameraMatricesWidget()
@@ -66,8 +64,6 @@ void CameraMatricesWidget::paintGL()
 void CameraMatricesWidget::resizeGL(int width, int height)
 {
     _camera->setPixelMatrixSize(width, height);
-    _width = width;
-    _height = height;
 }
 
 void CameraMatricesWidget::buildProgram()
