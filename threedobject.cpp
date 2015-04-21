@@ -1,10 +1,11 @@
 #include "threedobject.h"
 
-static float const Z = -1.0f;
+static int const N_POINTS = 4;
+static float const Z = -10.0f;
 
 ThreeDObject::ThreeDObject(QObject *parent) : QObject(parent)
 {
-    _data.resize(3*3);
+    _data.resize(3*N_POINTS);
 
     _data[0] =  0.0f;
     _data[1] = 1.0f;
@@ -17,6 +18,10 @@ ThreeDObject::ThreeDObject(QObject *parent) : QObject(parent)
     _data[6] = 1.0f;
     _data[7] = -1.0f;
     _data[8] = Z;
+
+    _data[9] = 0;
+    _data[10] = 0;
+    _data[11] = 0.9*Z;
 }
 
 ThreeDObject::~ThreeDObject()
