@@ -87,19 +87,12 @@ void CameraMatricesWidget::buildProgram()
     _program->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/simple.vert");
     _program->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/simple.frag");
     _program->bindAttributeLocation("vertex", 0);
-//    _program->bindAttributeLocation("normal", 1);
     _program->link();
 
     _program->bind();
     _extrinsicLoc = _program->uniformLocation("extrinsic");
 
     _projectionMatrixLoc = _program->uniformLocation("projection");
-
-//    _modelviewMatrixLoc = _program->uniformLocation("mvMatrix");
-//    _normalMatrixLoc = _program->uniformLocation("normalMatrix");
-//    _lightPosLoc = _program->uniformLocation("lightPos");
-
-//    _program->setUniformValue(_lightPosLoc, QVector3D(0, 0, 70));
 
     _vao.create();
     QOpenGLVertexArrayObject::Binder vaoBinder(&_vao);
@@ -111,9 +104,7 @@ void CameraMatricesWidget::buildProgram()
 
     QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
     f->glEnableVertexAttribArray(0);
-//    f->glEnableVertexAttribArray(1);
     f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0);
-//    f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<void *>(3 * sizeof(GLfloat)));
     _vbo.release();
 
     _program->release();

@@ -40,9 +40,6 @@ private:
 
     int _extrinsicLoc;
     int _projectionMatrixLoc;
-    int _modelviewMatrixLoc;
-    int _normalMatrixLoc;
-    int _lightPosLoc;
 
     Camera* _camera;
 
