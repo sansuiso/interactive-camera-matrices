@@ -72,6 +72,9 @@ Eigen::Matrix3f Camera::intrinsic()
 
 Eigen::Matrix4f Camera::extrinsic()
 {
+    Eigen::Vector3f C;
+    C << _x, _y, _z;
+
     Eigen::Matrix4f translation = Eigen::Matrix4f::Identity();
     translation(0,3) = -_x;
     translation(1,3) = -_y;
@@ -96,11 +99,13 @@ Eigen::Matrix4f Camera::extrinsic()
     Rz(1,1) = cosf(_theta_z);
 
     Eigen::Matrix3f Rc = Rx*Ry*Rz;
+    C = -Rc.transpose()*C;
 
-    Eigen::Matrix4f orientation = Eigen::Matrix4f::Identity();
-    orientation.block(0, 0, 3, 3) = Rc.transpose();
+    Eigen::Matrix4f extr = Eigen::Matrix4f::Identity();
+    extr.block(0, 0, 3, 3) = Rc.transpose();
+    extr.block(0, 3, 3, 1) = C;
 
-    return orientation * translation;
+    return extr;
 }
 
 Eigen::Matrix4f Camera::projection()
