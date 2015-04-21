@@ -1,10 +1,12 @@
 #include <math.h>
+#include <iostream>
+
 #include "camera.h"
 
 Camera::Camera(int pixelsWide, int pixelsHigh)
-    : _pixelsWide(pixelsWide), _pixelsHigh(pixelsHigh), _micronsPerPixel(3)
+    : _pixelsWide(pixelsWide), _pixelsHigh(pixelsHigh), _micronsPerPixel(1)
     , _x(0), _y(0), _z(0), _theta_x(0), _theta_y(0), _theta_z(0)
-    , _focalLength(1), _cameraPlaneOriginX(0), _cameraPlaneOriginY(0)
+    , _focalLength(1), _pixelAspectRatio(1), _skew(0), _x0(0), _y0(0)
 {
 
 }
@@ -61,11 +63,12 @@ Eigen::Matrix3f Camera::intrinsic()
 {
     Eigen::Matrix3f K = Eigen::Matrix3f::Identity();
 
-    K(0,0) = (_focalLength*1e-3f) / (_micronsPerPixel*1e-6);
-    K(1,1) = (_focalLength*1e-3f) / (_micronsPerPixel*1e-6);
+    K(0,0) = _focalLength * 1e-3 / (_micronsPerPixel*1e-6);
+    K(0,1) = _skew;
+    K(1,1) = _pixelAspectRatio * K(0,0);
 
-    K(0,2) = -cameraPlaneOriginX();
-    K(1,2) = -cameraPlaneOriginY();
+    K(0,2) = _x0 / (_micronsPerPixel*1e-6);
+    K(1,2) = _y0 * _pixelAspectRatio / (_micronsPerPixel*1e-6);
 
     return K;
 }
@@ -105,33 +108,60 @@ Eigen::Matrix4f Camera::extrinsic()
     extr.block(0, 0, 3, 3) = Rc.transpose();
     extr.block(0, 3, 3, 1) = C;
 
+    std::cerr << "Extrinsic = \n" << extr << std::endl;
     return extr;
 }
 
-Eigen::Matrix4f Camera::projection()
+Eigen::Matrix4f Camera::glPerspective(float left, float right, float bottom, float top, float near, float far)
 {
+    Eigen::Matrix4f perspective = Eigen::Matrix4f::Zero();
+
     Eigen::Matrix3f K = intrinsic();
 
-    /*
-     *  - x, y are projected
-     *  - z is kept as is
-     *  - w <--- z
-     */
+    std::cerr << "K = \n" << K << std::endl;
 
-    // Apply camera to x, y
-    Eigen::Matrix4f extendedK = Eigen::Matrix4f::Zero();
-    extendedK(0,0) = K(0,0);
-    extendedK(1,1) = K(1,1);
+    perspective(0,0) = K(0,0);
+    perspective(1,1) = K(1,1);
 
-    extendedK(0,2) = K(0,2);
-    extendedK(1,2) = K(1,2);
+    perspective(0,1) = K(0,1);
 
-    // Preserve z
-    extendedK(2, 2) = 1;
-    // w <--- z
-    extendedK(3, 3) = 1;
+    perspective(0,2) = -K(0,2);
+    perspective(1,2) = -K(1,2);
+    perspective(3,2) = -1;
 
-    Eigen::Matrix4f P = extendedK /* * extrinsic()*/;
+    perspective(2,2) = near + far;
+    perspective(2,3) = near*far;
+
+    std::cerr << "Perspective = \n" << perspective << std::endl;
+
+    Eigen::Matrix4f NDC = Eigen::Matrix4f::Identity();
+
+    right = _pixelsWide/2;
+    left = -right;
+    top = _pixelsHigh/2;
+    bottom = -top;
+
+    NDC(0,0) = 2.0f / (right - left);
+    NDC(1,1) = 2.0f / (top - bottom);
+    NDC(2,2) = -2.0f / (far - near);
+    NDC(0,3) = -(right + left)/(right - left);
+    NDC(1,3) = -(top + bottom)/(top - bottom);
+    NDC(2,3) = -(far + near)/(far - near);
+
+    std::cerr << "NDC = \n" << NDC << std::endl;
+
+    Eigen::Matrix4f P = NDC * perspective;
+
+    std::cerr << "P = \n" << P << std::endl;
+
+    Eigen::Vector4f X;
+    X << 0, 0, -1, 1;
+    X = P*X;
+    std::cerr << "PX = \t" << (X/(X(3))).transpose() << std::endl;
+
+    X << 1, 0, -1, 1;
+    X = P*X;
+    std::cerr << "PX(1) = \t" << (X/(X(3))).transpose() << std::endl;
 
     return P;
 }

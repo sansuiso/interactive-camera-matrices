@@ -41,31 +41,26 @@ void CameraMatricesWidget::paintGL()
     QOpenGLVertexArrayObject::Binder vaoBinder(&_vao);
     _program->bind();
 
-    _projectionMatrix.setToIdentity();
-
-    _projectionMatrix.data()[0] = 2.0f/this->size().width();
-    _projectionMatrix.data()[8] = _camera->cameraPlaneOriginX()/this->size().width()/2;
-
-    _projectionMatrix.data()[5] = 2.0f/this->size().height();
-    _projectionMatrix.data()[9] = _camera->cameraPlaneOriginY()/this->size().height()/2;
-
-    _projectionMatrix.data()[10] = -2.0f/(_far - _near); // Invert z-axis to take into account OpenGL z-convention
-    _projectionMatrix.data()[14] = -(_far + _near)/(_far - _near);
-
     _camera->setWorldPosition(0, 0, 0);
-    Eigen::Matrix4f extrinsic = _camera->projection();
+    float W = this->size().width();
+    float H = this->size().height();
 
-    QMatrix4x4 extr(
-                extrinsic(0,0), extrinsic(1,0), extrinsic(2,0), extrinsic(3,0),
-                extrinsic(0,1), extrinsic(1,1), extrinsic(2,1), extrinsic(3,1),
-                extrinsic(0,2), extrinsic(1,2), extrinsic(2,2), extrinsic(3,2),
-                extrinsic(0,3), extrinsic(1,3), extrinsic(2,3), extrinsic(3,3)
-                );
+    Eigen::Matrix4f extrinsic = _camera->extrinsic();
+    Eigen::Matrix4f projection = _camera->glPerspective(0, W, H, 0, _near, _far);
 
-    _program->setUniformValue(_extrinsicLoc, extr);
+    for (int i = 0; i < 16; ++i) {
+        _projectionMatrix.data()[i] = projection.data()[i];
+        _worldMatrix.data()[i] = extrinsic.data()[i];
+    }
+
+    _program->setUniformValue(_extrinsicLoc, _worldMatrix);
     _program->setUniformValue(_projectionMatrixLoc, _projectionMatrix);
 
-    glDrawArrays(GL_TRIANGLES, 0, _scene.vertexCount());
+#ifdef DRAW_DEBUG
+    glDrawArrays(GL_POINTS, 0, _scene.vertexCount());
+#else
+    glDrawArrays(GL_TRIANGLES, 0, _scene.triangleCount());
+#endif
 
     _program->release();
 }
