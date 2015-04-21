@@ -52,7 +52,7 @@ public:
 
     Eigen::Matrix3f intrinsic();
     Eigen::Matrix4f extrinsic();
-    Eigen::Matrix4f glPerspective(float left, float right, float bottom, float top, float near, float far);
+    Eigen::Matrix4f glPerspective(float near, float far);
 
 private:
     int _pixelsWide;

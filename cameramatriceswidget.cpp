@@ -42,11 +42,9 @@ void CameraMatricesWidget::paintGL()
     _program->bind();
 
     _camera->setWorldPosition(0, 0, 0);
-    float W = this->size().width();
-    float H = this->size().height();
 
     Eigen::Matrix4f extrinsic = _camera->extrinsic();
-    Eigen::Matrix4f projection = _camera->glPerspective(0, W, H, 0, _near, _far);
+    Eigen::Matrix4f projection = _camera->glPerspective(_near, _far);
 
     for (int i = 0; i < 16; ++i) {
         _projectionMatrix.data()[i] = projection.data()[i];

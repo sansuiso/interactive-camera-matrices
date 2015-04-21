@@ -112,7 +112,7 @@ Eigen::Matrix4f Camera::extrinsic()
     return extr;
 }
 
-Eigen::Matrix4f Camera::glPerspective(float left, float right, float bottom, float top, float near, float far)
+Eigen::Matrix4f Camera::glPerspective(float near, float far)
 {
     Eigen::Matrix4f perspective = Eigen::Matrix4f::Zero();
 
@@ -136,10 +136,10 @@ Eigen::Matrix4f Camera::glPerspective(float left, float right, float bottom, flo
 
     Eigen::Matrix4f NDC = Eigen::Matrix4f::Identity();
 
-    right = _pixelsWide/2;
-    left = -right;
-    top = _pixelsHigh/2;
-    bottom = -top;
+    float right = _pixelsWide/2;
+    float left = -right;
+    float top = _pixelsHigh/2;
+    float bottom = -top;
 
     NDC(0,0) = 2.0f / (right - left);
     NDC(1,1) = 2.0f / (top - bottom);
