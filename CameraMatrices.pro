@@ -18,12 +18,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     cameramatriceswidget.cpp \
     camera.cpp \
-    threedobject.cpp
+    threedobject.cpp \
+    extrinsiccontrolwidget.cpp
 
 HEADERS  += mainwindow.h \
     cameramatriceswidget.h \
     camera.h \
-    threedobject.h
+    threedobject.h \
+    extrinsiccontrolwidget.h
 
 macx:QMAKE_CXXFLAGS += -std=c++11
 
