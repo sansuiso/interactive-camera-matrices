@@ -15,7 +15,7 @@ class CameraMatricesWidget : public QOpenGLWidget
 {
     Q_OBJECT
 public:
-    explicit CameraMatricesWidget(QWidget *parent = 0);
+    explicit CameraMatricesWidget(Camera* camera, QWidget *parent = 0);
     ~CameraMatricesWidget();
 
 signals:
@@ -30,6 +30,8 @@ protected:
     QSize sizeHint() const Q_DECL_OVERRIDE;
 
 private:
+    Camera* _camera;
+
     QOpenGLShaderProgram* _program;
     QOpenGLVertexArrayObject _vao;
     QOpenGLBuffer _vbo;
@@ -40,8 +42,6 @@ private:
 
     int _extrinsicLoc;
     int _projectionMatrixLoc;
-
-    Camera* _camera;
 
     void buildProgram();
 

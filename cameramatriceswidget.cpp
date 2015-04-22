@@ -5,21 +5,24 @@
 #include "camera.h"
 #include "cameramatriceswidget.h"
 
-CameraMatricesWidget::CameraMatricesWidget(QWidget *parent)
-    : QOpenGLWidget(parent), _program(nullptr)
+CameraMatricesWidget::CameraMatricesWidget(Camera *camera, QWidget *parent)
+    : QOpenGLWidget(parent)
+    , _camera(camera), _program(nullptr)
     , _near(1e-1f), _far(1e2f)
 {
-    _camera = new Camera(800, 600);
 }
 
 CameraMatricesWidget::~CameraMatricesWidget()
 {
-    delete _camera;
 }
 
 QSize CameraMatricesWidget::sizeHint() const
 {
-    return QSize(_camera->pixelsWide(), _camera->pixelsHigh());
+    if (_camera != nullptr) {
+        return QSize(_camera->pixelsWide(), _camera->pixelsHigh());
+    }
+
+    return QOpenGLWidget::sizeHint();
 }
 
 void CameraMatricesWidget::initializeGL()
@@ -41,31 +44,34 @@ void CameraMatricesWidget::paintGL()
     QOpenGLVertexArrayObject::Binder vaoBinder(&_vao);
     _program->bind();
 
-    _camera->setWorldPosition(0, 0, 0);
+    if (_camera)
+    {
+        Eigen::Matrix4f extrinsic = _camera->extrinsic();
+        Eigen::Matrix4f projection = _camera->glPerspective(_near, _far);
 
-    Eigen::Matrix4f extrinsic = _camera->extrinsic();
-    Eigen::Matrix4f projection = _camera->glPerspective(_near, _far);
+        for (int i = 0; i < 16; ++i) {
+            _projectionMatrix.data()[i] = projection.data()[i];
+            _worldMatrix.data()[i] = extrinsic.data()[i];
+        }
 
-    for (int i = 0; i < 16; ++i) {
-        _projectionMatrix.data()[i] = projection.data()[i];
-        _worldMatrix.data()[i] = extrinsic.data()[i];
-    }
-
-    _program->setUniformValue(_extrinsicLoc, _worldMatrix);
-    _program->setUniformValue(_projectionMatrixLoc, _projectionMatrix);
+        _program->setUniformValue(_extrinsicLoc, _worldMatrix);
+        _program->setUniformValue(_projectionMatrixLoc, _projectionMatrix);
 
 #ifdef DRAW_DEBUG
-    glDrawArrays(GL_POINTS, 0, _scene.vertexCount());
+        glDrawArrays(GL_POINTS, 0, _scene.vertexCount());
 #else
-    glDrawArrays(GL_TRIANGLES, 0, _scene.triangleCount());
+        glDrawArrays(GL_TRIANGLES, 0, _scene.triangleCount());
 #endif
+    }
 
     _program->release();
 }
 
 void CameraMatricesWidget::resizeGL(int width, int height)
 {
-    _camera->setPixelMatrixSize(width, height);
+    if (_camera) {
+        _camera->setPixelMatrixSize(width, height);
+    }
 }
 
 void CameraMatricesWidget::buildProgram()
