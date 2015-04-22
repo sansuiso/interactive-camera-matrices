@@ -23,6 +23,8 @@ private:
     QSlider* _xSlider;
     QSlider* _ySlider;
     QSlider* _zSlider;
+
+    void updateCameraPosition();
 };
 
 #endif // EXTRINSICCONTROLWIDGET_H
