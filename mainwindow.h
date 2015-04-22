@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 QT_FORWARD_DECLARE_CLASS(CameraMatricesWidget)
+QT_FORWARD_DECLARE_CLASS(ExtrinsicControlWidget)
 
 class MainWindow : public QMainWindow
 {
@@ -14,6 +15,7 @@ public:
     ~MainWindow();
 
     CameraMatricesWidget* _cameraMatricesWidget;
+    ExtrinsicControlWidget* _extrinsicControlWidget;
 };
 
 #endif // MAINWINDOW_H
