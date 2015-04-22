@@ -20,9 +20,15 @@ public slots:
 private:
     Camera* _camera;
 
+    static int const SLIDER_STEPS;
+
     QSlider* _xSlider;
     QSlider* _ySlider;
     QSlider* _zSlider;
+
+    QSlider* _thetaXSlider;
+    QSlider* _thetaYSlider;
+    QSlider* _thetaZSlider;
 
     void updateCameraPosition();
 };
