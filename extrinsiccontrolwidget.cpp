@@ -48,9 +48,9 @@ void ExtrinsicControlWidget::updateCameraPosition()
 {
     qDebug() << __FUNCTION__;
 
-    float x = 0.05*_xSlider->value();
-    float y = 0.05*_ySlider->value();
-    float z = 0.05*_zSlider->value();
+    float x = 10.0f * _xSlider->value() / (float)ExtrinsicControlWidget::SLIDER_STEPS;
+    float y = 10.0f * _ySlider->value() / (float)ExtrinsicControlWidget::SLIDER_STEPS;
+    float z = 10.0f * _zSlider->value() / (float)ExtrinsicControlWidget::SLIDER_STEPS;
 
     float thetaX = 45.0f *_thetaXSlider->value() / (float)ExtrinsicControlWidget::SLIDER_STEPS;
     float thetaY = 45.0f *_thetaYSlider->value() / (float)ExtrinsicControlWidget::SLIDER_STEPS;
