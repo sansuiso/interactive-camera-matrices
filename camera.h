@@ -6,7 +6,7 @@
 class Camera
 {
 public:
-    Camera(int pixelsWide, int pixelsHigh);
+    Camera(int pixelsWide=800, int pixelsHigh=600);
     ~Camera();
 
     void setWorldPosition(float x, float y, float z);

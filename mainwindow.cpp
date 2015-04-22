@@ -1,13 +1,16 @@
 #include <QVboxLayout>
 #include <QWidget>
 
+#include "camera.h"
 #include "cameramatriceswidget.h"
 #include "extrinsiccontrolwidget.h"
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+    : QMainWindow(parent), _camera(nullptr)
 {
+    _camera = new Camera;
+
     _cameraMatricesWidget = new CameraMatricesWidget;
     _extrinsicControlWidget = new ExtrinsicControlWidget;
 
@@ -23,5 +26,5 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-
+    if (_camera) delete _camera;
 }

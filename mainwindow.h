@@ -5,6 +5,7 @@
 
 QT_FORWARD_DECLARE_CLASS(CameraMatricesWidget)
 QT_FORWARD_DECLARE_CLASS(ExtrinsicControlWidget)
+QT_FORWARD_DECLARE_CLASS(Camera)
 
 class MainWindow : public QMainWindow
 {
@@ -16,6 +17,9 @@ public:
 
     CameraMatricesWidget* _cameraMatricesWidget;
     ExtrinsicControlWidget* _extrinsicControlWidget;
+
+private:
+    Camera* _camera;
 };
 
 #endif // MAINWINDOW_H
