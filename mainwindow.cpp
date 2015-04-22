@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     _camera = new Camera;
 
     _cameraMatricesWidget = new CameraMatricesWidget(_camera);
-    _extrinsicControlWidget = new ExtrinsicControlWidget;
+    _extrinsicControlWidget = new ExtrinsicControlWidget(_camera);
 
     QWidget* widget = new QWidget;
     QVBoxLayout* layout = new QVBoxLayout;

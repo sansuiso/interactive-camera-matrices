@@ -1,9 +1,11 @@
 #include <QSlider>
 #include <QVBoxLayout>
 
+#include "camera.h"
 #include "extrinsiccontrolwidget.h"
 
-ExtrinsicControlWidget::ExtrinsicControlWidget(QWidget *parent) : QWidget(parent)
+ExtrinsicControlWidget::ExtrinsicControlWidget(Camera *camera, QWidget *parent)
+    : QWidget(parent), _camera(camera)
 {
     QVBoxLayout* layout = new QVBoxLayout;
 
