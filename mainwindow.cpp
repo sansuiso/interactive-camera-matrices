@@ -5,6 +5,7 @@
 #include "camera.h"
 #include "cameramatriceswidget.h"
 #include "extrinsiccontrolwidget.h"
+#include "intrinsiccontrolwidget.h"
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -14,11 +15,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     _cameraMatricesWidget = new CameraMatricesWidget(_camera);
     _extrinsicControlWidget = new ExtrinsicControlWidget(_camera);
+    _intrinsicControlWidget = new IntrinsicControlWidget(_camera);
 
     QWidget* widget = new QWidget;
 
     QTabWidget* tabs = new QTabWidget;
     tabs->addTab(_extrinsicControlWidget, "Extrinsic");
+    tabs->addTab(_intrinsicControlWidget, "Intrinsic");
 
     QVBoxLayout* layout = new QVBoxLayout;
 

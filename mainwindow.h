@@ -3,9 +3,10 @@
 
 #include <QMainWindow>
 
+QT_FORWARD_DECLARE_CLASS(Camera)
 QT_FORWARD_DECLARE_CLASS(CameraMatricesWidget)
 QT_FORWARD_DECLARE_CLASS(ExtrinsicControlWidget)
-QT_FORWARD_DECLARE_CLASS(Camera)
+QT_FORWARD_DECLARE_CLASS(IntrinsicControlWidget)
 
 class MainWindow : public QMainWindow
 {
@@ -16,10 +17,12 @@ public:
     ~MainWindow();
 
     CameraMatricesWidget* _cameraMatricesWidget;
-    ExtrinsicControlWidget* _extrinsicControlWidget;
 
 private:
     Camera* _camera;
+
+    ExtrinsicControlWidget* _extrinsicControlWidget;
+    IntrinsicControlWidget* _intrinsicControlWidget;
 };
 
 #endif // MAINWINDOW_H
