@@ -1,6 +1,8 @@
 #include <QDebug>
 #include <QHBoxLayout>
+#include <QLabel>
 #include <QSlider>
+#include <QString>
 #include <QVBoxLayout>
 
 #include "camera.h"
@@ -15,10 +17,17 @@ ExtrinsicControlWidget::ExtrinsicControlWidget(Camera *camera, QWidget *parent)
     QVBoxLayout* boxPosition = new QVBoxLayout;
     QVBoxLayout* boxAngles = new QVBoxLayout;
 
-    auto setupSlider = [&](QSlider* slider, QVBoxLayout* layout) {
+    auto setupSlider = [&](QString const& text, QSlider* slider, QVBoxLayout* layout) {
+        QHBoxLayout* hbox = new QHBoxLayout;
+
+        QLabel* label = new QLabel(text);
+        hbox->addWidget(label);
+
         slider->setMinimum(-ExtrinsicControlWidget::SLIDER_STEPS);
         slider->setMaximum(ExtrinsicControlWidget::SLIDER_STEPS);
-        layout->addWidget(slider);
+        hbox->addWidget(slider);
+
+        layout->addLayout(hbox);
 
         connect(slider, &QSlider::valueChanged, this, &ExtrinsicControlWidget::updateCameraPosition);
     };
@@ -31,13 +40,13 @@ ExtrinsicControlWidget::ExtrinsicControlWidget(Camera *camera, QWidget *parent)
     _thetaYSlider = new QSlider(Qt::Horizontal);
     _thetaZSlider = new QSlider(Qt::Horizontal);
 
-    setupSlider(_xSlider, boxPosition);
-    setupSlider(_ySlider, boxPosition);
-    setupSlider(_zSlider, boxPosition);
+    setupSlider("X", _xSlider, boxPosition);
+    setupSlider("Y", _ySlider, boxPosition);
+    setupSlider("Z", _zSlider, boxPosition);
 
-    setupSlider(_thetaXSlider, boxAngles);
-    setupSlider(_thetaYSlider, boxAngles);
-    setupSlider(_thetaZSlider, boxAngles);
+    setupSlider("Theta_X", _thetaXSlider, boxAngles);
+    setupSlider("Theta_Y", _thetaYSlider, boxAngles);
+    setupSlider("Theta_Z", _thetaZSlider, boxAngles);
 
     box->addLayout(boxPosition);
     box->addLayout(boxAngles);
