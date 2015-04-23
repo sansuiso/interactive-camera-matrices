@@ -44,9 +44,9 @@ ExtrinsicControlWidget::ExtrinsicControlWidget(Camera *camera, QWidget *parent)
     setupSlider("Y", _ySlider, boxPosition);
     setupSlider("Z", _zSlider, boxPosition);
 
-    setupSlider("Theta_X", _thetaXSlider, boxAngles);
-    setupSlider("Theta_Y", _thetaYSlider, boxAngles);
-    setupSlider("Theta_Z", _thetaZSlider, boxAngles);
+    setupSlider(QString(QChar(0xf4, 0x03))+"_x", _thetaXSlider, boxAngles);
+    setupSlider(QString(QChar(0xf4, 0x03))+"_y", _thetaYSlider, boxAngles);
+    setupSlider(QString(QChar(0xf4, 0x03))+"_z", _thetaZSlider, boxAngles);
 
     box->addLayout(boxPosition);
     box->addLayout(boxAngles);
