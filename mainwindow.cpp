@@ -1,3 +1,4 @@
+#include <QTabWidget>
 #include <QVboxLayout>
 #include <QWidget>
 
@@ -15,10 +16,14 @@ MainWindow::MainWindow(QWidget *parent)
     _extrinsicControlWidget = new ExtrinsicControlWidget(_camera);
 
     QWidget* widget = new QWidget;
+
+    QTabWidget* tabs = new QTabWidget;
+    tabs->addTab(_extrinsicControlWidget, "Extrinsic");
+
     QVBoxLayout* layout = new QVBoxLayout;
 
     layout->addWidget(_cameraMatricesWidget);
-    layout->addWidget(_extrinsicControlWidget);
+    layout->addWidget(tabs);
     widget->setLayout(layout);
 
     this->setCentralWidget(widget);
