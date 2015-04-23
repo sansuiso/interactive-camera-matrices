@@ -1,3 +1,4 @@
+#include <QApplication>
 #include <QDebug>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -75,6 +76,6 @@ void ExtrinsicControlWidget::updateCameraPosition()
         _camera->setWorldPosition(x, y, z);
         _camera->setWorldOrientation(thetaX, thetaY, thetaZ);
 
-        this->parentWidget()->update();
+        QApplication::activeWindow()->update();
     }
 }
