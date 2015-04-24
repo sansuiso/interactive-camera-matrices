@@ -5,7 +5,6 @@
 
 QT_FORWARD_DECLARE_CLASS(Camera)
 QT_FORWARD_DECLARE_CLASS(SlidingControlWidget)
-QT_FORWARD_DECLARE_CLASS(QSlider)
 
 class ExtrinsicControlWidget : public QWidget
 {
@@ -30,14 +29,6 @@ private:
     SlidingControlWidget* _thetaXSlidingWidget;
     SlidingControlWidget* _thetaYSlidingWidget;
     SlidingControlWidget* _thetaZSlidingWidget;
-
-    QSlider* _xSlider;
-    QSlider* _ySlider;
-    QSlider* _zSlider;
-
-    QSlider* _thetaXSlider;
-    QSlider* _thetaYSlider;
-    QSlider* _thetaZSlider;
 
     void updateCameraPosition();
 };
