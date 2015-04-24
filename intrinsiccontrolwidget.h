@@ -4,6 +4,7 @@
 #include <QWidget>
 
 QT_FORWARD_DECLARE_CLASS(Camera)
+QT_FORWARD_DECLARE_CLASS(SlidingControlWidget)
 
 class IntrinsicControlWidget : public QWidget
 {
@@ -15,9 +16,14 @@ public:
 signals:
 
 public slots:
+    void updateCamera();
 
 private:
     Camera* _camera;
+
+    SlidingControlWidget* _focalWidget;
+    SlidingControlWidget* _pixelSizeWidget;
+    SlidingControlWidget* _skewWidget;
 };
 
 #endif // INTRINSICCONTROLWIDGET_H

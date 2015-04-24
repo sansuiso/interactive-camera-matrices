@@ -22,6 +22,10 @@ public:
         _focalLength = f_mm;
     }
 
+    float FNumber() const {
+        return _focalLength;
+    }
+
     float focalLength() const {
         return _focalLength * 1e-3;
     }
@@ -53,6 +57,22 @@ public:
     Eigen::Matrix3f intrinsic();
     Eigen::Matrix4f extrinsic();
     Eigen::Matrix4f glPerspective(float near, float far);
+
+    float micronsPerPixel() const {
+        return _micronsPerPixel;
+    }
+
+    void setMicronsPerPixel(float value) {
+        _micronsPerPixel = value > 1.0f ? value : 1.0f;
+    }
+
+    float skew() const {
+        return _skew;
+    }
+
+    void setSkew(float skew) {
+        _skew = skew;
+    }
 
 private:
     int _pixelsWide;
