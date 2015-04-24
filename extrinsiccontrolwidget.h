@@ -4,6 +4,7 @@
 #include <QWidget>
 
 QT_FORWARD_DECLARE_CLASS(Camera)
+QT_FORWARD_DECLARE_CLASS(SlidingControlWidget)
 QT_FORWARD_DECLARE_CLASS(QSlider)
 
 class ExtrinsicControlWidget : public QWidget
@@ -21,6 +22,14 @@ private:
     Camera* _camera;
 
     static int const SLIDER_STEPS;
+
+    SlidingControlWidget* _xSlidingWidget;
+    SlidingControlWidget* _ySlidingWidget;
+    SlidingControlWidget* _zSlidingWidget;
+
+    SlidingControlWidget* _thetaXSlidingWidget;
+    SlidingControlWidget* _thetaYSlidingWidget;
+    SlidingControlWidget* _thetaZSlidingWidget;
 
     QSlider* _xSlider;
     QSlider* _ySlider;

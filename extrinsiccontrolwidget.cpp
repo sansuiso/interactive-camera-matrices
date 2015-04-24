@@ -8,6 +8,7 @@
 
 #include "camera.h"
 #include "extrinsiccontrolwidget.h"
+#include "slidingcontrolwidget.h"
 
 int const ExtrinsicControlWidget::SLIDER_STEPS = 200;
 
@@ -32,6 +33,27 @@ ExtrinsicControlWidget::ExtrinsicControlWidget(Camera *camera, QWidget *parent)
 
         connect(slider, &QSlider::valueChanged, this, &ExtrinsicControlWidget::updateCameraPosition);
     };
+
+    _xSlidingWidget = new SlidingControlWidget("X:", -ExtrinsicControlWidget::SLIDER_STEPS, ExtrinsicControlWidget::SLIDER_STEPS);
+    boxPosition->addWidget(_xSlidingWidget);
+
+    _ySlidingWidget = new SlidingControlWidget("Y:", -ExtrinsicControlWidget::SLIDER_STEPS, ExtrinsicControlWidget::SLIDER_STEPS);
+    boxPosition->addWidget(_ySlidingWidget);
+
+    _zSlidingWidget = new SlidingControlWidget("Z:", -ExtrinsicControlWidget::SLIDER_STEPS, ExtrinsicControlWidget::SLIDER_STEPS);
+    boxPosition->addWidget(_zSlidingWidget);
+
+    _thetaXSlidingWidget = new SlidingControlWidget(QString("%1_%2").arg(QChar(0xf4, 0x03)).arg("x"),
+                                                    -ExtrinsicControlWidget::SLIDER_STEPS, ExtrinsicControlWidget::SLIDER_STEPS);
+    boxAngles->addWidget(_thetaXSlidingWidget);
+
+    _thetaYSlidingWidget = new SlidingControlWidget(QString("%1_%2").arg(QChar(0xf4, 0x03)).arg("y"),
+                                                    -ExtrinsicControlWidget::SLIDER_STEPS, ExtrinsicControlWidget::SLIDER_STEPS);
+    boxAngles->addWidget(_thetaYSlidingWidget);
+
+    _thetaZSlidingWidget = new SlidingControlWidget(QString("%1_%2").arg(QChar(0xf4, 0x03)).arg("z"),
+                                                    -ExtrinsicControlWidget::SLIDER_STEPS, ExtrinsicControlWidget::SLIDER_STEPS);
+    boxAngles->addWidget(_thetaZSlidingWidget);
 
     _xSlider = new QSlider(Qt::Horizontal);
     _ySlider = new QSlider(Qt::Horizontal);

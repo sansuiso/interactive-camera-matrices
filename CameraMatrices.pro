@@ -20,14 +20,16 @@ SOURCES += main.cpp\
     camera.cpp \
     threedobject.cpp \
     extrinsiccontrolwidget.cpp \
-    intrinsiccontrolwidget.cpp
+    intrinsiccontrolwidget.cpp \
+    slidingcontrolwidget.cpp
 
 HEADERS  += mainwindow.h \
     cameramatriceswidget.h \
     camera.h \
     threedobject.h \
     extrinsiccontrolwidget.h \
-    intrinsiccontrolwidget.h
+    intrinsiccontrolwidget.h \
+    slidingcontrolwidget.h
 
 macx:QMAKE_CXXFLAGS += -std=c++11
 
