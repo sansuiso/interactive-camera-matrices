@@ -42,5 +42,7 @@ SlidingControlWidget::~SlidingControlWidget()
 void SlidingControlWidget::setValue(float value)
 {
     _value = value;
-    _valueLabel->setText(QString("%1").arg(_value));
+    QString text;
+    text.sprintf("%+02.2f", value);
+    _valueLabel->setText(text);
 }
