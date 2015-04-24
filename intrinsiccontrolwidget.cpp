@@ -24,9 +24,15 @@ IntrinsicControlWidget::IntrinsicControlWidget(Camera *camera, QWidget *parent)
     layout->addWidget(_pixelSizeWidget);
 
     _skewWidget = new SlidingControlWidget("Skew:", 0, 100, camera->skew(),
-                                                [](int value) { return 3.0f*value;});
+                                           [](int value) { return 3.0f*value;});
     connect(_skewWidget, &SlidingControlWidget::valueChanged, this, &IntrinsicControlWidget::updateCamera);
     layout->addWidget(_skewWidget);
+
+    _aspectRatioWidget = new SlidingControlWidget("Aspect ratio:", -50, 50,
+                                                  (int)(0.02*(camera->aspectRatio() - 1.0f)),
+                                                  [](int value) { return 1.0f + 0.02f*value; });
+    connect(_aspectRatioWidget, &SlidingControlWidget::valueChanged, this, &IntrinsicControlWidget::updateCamera);
+    layout->addWidget(_aspectRatioWidget);
 
     this->setLayout(layout);
 }
@@ -43,6 +49,7 @@ void IntrinsicControlWidget::updateCamera()
         _camera->setFocalLength(_focalWidget->value());
         _camera->setMicronsPerPixel(_pixelSizeWidget->value());
         _camera->setSkew(_skewWidget->value());
+        _camera->setAspectRatio(_aspectRatioWidget->value());
 
         QApplication::activeWindow()->update();
     }

@@ -74,6 +74,14 @@ public:
         _skew = skew;
     }
 
+    void setAspectRatio(float ratio) {
+        _pixelAspectRatio = ratio;
+    }
+
+    float aspectRatio() const {
+        return _pixelAspectRatio;
+    }
+
 private:
     int _pixelsWide;
     int _pixelsHigh;

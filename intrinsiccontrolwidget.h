@@ -24,6 +24,7 @@ private:
     SlidingControlWidget* _focalWidget;
     SlidingControlWidget* _pixelSizeWidget;
     SlidingControlWidget* _skewWidget;
+    SlidingControlWidget* _aspectRatioWidget;
 };
 
 #endif // INTRINSICCONTROLWIDGET_H
