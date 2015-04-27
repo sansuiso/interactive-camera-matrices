@@ -1,13 +1,18 @@
+#include <QTableView>
+#include <QHBoxLayout>
+#include <QHeaderView>
 #include <QVBoxLayout>
 
 #include "camera.h"
 #include "cameramatriceswidget.h"
 #include "intrinsiccontrolwidget.h"
+#include "intrinsicmatrixmodel.h"
 #include "slidingcontrolwidget.h"
 
 IntrinsicControlWidget::IntrinsicControlWidget(Camera *camera, CameraMatricesWidget *cameraViewWidget, QWidget *parent)
     : QWidget(parent), _camera(camera), _cameraViewWidget(cameraViewWidget)
 {
+    QHBoxLayout* box = new QHBoxLayout;
     QVBoxLayout* layout = new QVBoxLayout;
 
     auto identity = [](int value) ->float {
@@ -34,7 +39,18 @@ IntrinsicControlWidget::IntrinsicControlWidget(Camera *camera, CameraMatricesWid
     connect(_aspectRatioWidget, &SlidingControlWidget::valueChanged, this, &IntrinsicControlWidget::updateCamera);
     layout->addWidget(_aspectRatioWidget);
 
-    this->setLayout(layout);
+    _intrinsicMatrixModel = new IntrinsicMatrixModel(_camera);
+    connect(this, &IntrinsicControlWidget::cameraWasUpdated, _intrinsicMatrixModel,
+            &IntrinsicMatrixModel::handleCameraUpdate);
+
+    QTableView* tableView = new QTableView;
+    tableView->horizontalHeader()->hide();
+    tableView->setModel(_intrinsicMatrixModel);
+
+    box->addLayout(layout);
+    box->addWidget(tableView);
+
+    this->setLayout(box);
 }
 
 IntrinsicControlWidget::~IntrinsicControlWidget()
@@ -50,6 +66,8 @@ void IntrinsicControlWidget::updateCamera()
         _camera->setMicronsPerPixel(_pixelSizeWidget->value());
         _camera->setSkew(_skewWidget->value());
         _camera->setAspectRatio(_aspectRatioWidget->value());
+
+        emit cameraWasUpdated();
 
         if (_cameraViewWidget) {
             _cameraViewWidget->update();

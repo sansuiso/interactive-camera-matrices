@@ -54,7 +54,7 @@ public:
         return _micronsPerPixel*pixelsHigh()*1e-6;
     }
 
-    Eigen::Matrix3f intrinsic();
+    Eigen::Matrix3f intrinsic() const;
     Eigen::Matrix4f extrinsic() const;
     Eigen::Matrix4f glPerspective(float near, float far);
 

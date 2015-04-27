@@ -5,6 +5,7 @@
 
 QT_FORWARD_DECLARE_CLASS(Camera)
 QT_FORWARD_DECLARE_CLASS(CameraMatricesWidget)
+QT_FORWARD_DECLARE_CLASS(IntrinsicMatrixModel)
 QT_FORWARD_DECLARE_CLASS(SlidingControlWidget)
 
 class IntrinsicControlWidget : public QWidget
@@ -15,6 +16,7 @@ public:
     ~IntrinsicControlWidget();
 
 signals:
+    void cameraWasUpdated();
 
 public slots:
     void updateCamera();
@@ -27,6 +29,8 @@ private:
     SlidingControlWidget* _pixelSizeWidget;
     SlidingControlWidget* _skewWidget;
     SlidingControlWidget* _aspectRatioWidget;
+
+    IntrinsicMatrixModel* _intrinsicMatrixModel;
 };
 
 #endif // INTRINSICCONTROLWIDGET_H

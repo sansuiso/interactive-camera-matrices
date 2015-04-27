@@ -59,7 +59,7 @@ void Camera::setWorldOrientation(float theta_x, float theta_y, float theta_z)
     _theta_z = deg2rad(theta_z).value;
 }
 
-Eigen::Matrix3f Camera::intrinsic()
+Eigen::Matrix3f Camera::intrinsic() const
 {
     Eigen::Matrix3f K = Eigen::Matrix3f::Identity();
 
