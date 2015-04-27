@@ -1,4 +1,3 @@
-#include <QDebug>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QString>
@@ -74,8 +73,6 @@ ExtrinsicControlWidget::~ExtrinsicControlWidget()
 
 void ExtrinsicControlWidget::updateCameraPosition()
 {
-    qDebug() << __FUNCTION__;
-
     float x = _xSlidingWidget->value();
     float y = _ySlidingWidget->value();
     float z = _zSlidingWidget->value();
