@@ -1,11 +1,14 @@
 #include <QHBoxLayout>
+#include <QHeaderView>
 #include <QLabel>
 #include <QString>
+#include <QTableView>
 #include <QVBoxLayout>
 
 #include "camera.h"
 #include "cameramatriceswidget.h"
 #include "extrinsiccontrolwidget.h"
+#include "extrinsicmatrixmodel.h"
 #include "slidingcontrolwidget.h"
 
 int const ExtrinsicControlWidget::SLIDER_STEPS = 200;
@@ -63,6 +66,18 @@ ExtrinsicControlWidget::ExtrinsicControlWidget(Camera *camera, CameraMatricesWid
 
     box->addLayout(boxPosition);
     box->addLayout(boxAngles);
+
+    _extrinsincMatrixModel = new ExtrinsicMatrixModel(_camera);
+    connect(this, &ExtrinsicControlWidget::cameraWasUpdated,
+            _extrinsincMatrixModel, &ExtrinsicMatrixModel::handleCameraUpdate);
+
+    QTableView* tableView = new QTableView;
+    tableView->setModel(_extrinsincMatrixModel);
+    tableView->horizontalHeader()->hide();
+    tableView->verticalHeader()->hide();
+
+    box->addWidget((tableView));
+
     this->setLayout(box);
 }
 
@@ -80,6 +95,8 @@ void ExtrinsicControlWidget::updateCameraPosition()
     float thetaX = _thetaXSlidingWidget->value();
     float thetaY = _thetaYSlidingWidget->value();
     float thetaZ = _thetaZSlidingWidget->value();
+
+    emit cameraWasUpdated();
 
     if (_camera)
     {

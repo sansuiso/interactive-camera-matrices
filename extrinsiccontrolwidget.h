@@ -5,6 +5,7 @@
 
 QT_FORWARD_DECLARE_CLASS(Camera)
 QT_FORWARD_DECLARE_CLASS(CameraMatricesWidget)
+QT_FORWARD_DECLARE_CLASS(ExtrinsicMatrixModel)
 QT_FORWARD_DECLARE_CLASS(SlidingControlWidget)
 
 class ExtrinsicControlWidget : public QWidget
@@ -15,6 +16,7 @@ public:
     ~ExtrinsicControlWidget();
 
 signals:
+    void cameraWasUpdated();
 
 public slots:
 
@@ -31,6 +33,8 @@ private:
     SlidingControlWidget* _thetaXSlidingWidget;
     SlidingControlWidget* _thetaYSlidingWidget;
     SlidingControlWidget* _thetaZSlidingWidget;
+
+    ExtrinsicMatrixModel* _extrinsincMatrixModel;
 
     void updateCameraPosition();
 };

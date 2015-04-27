@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     threedobject.cpp \
     extrinsiccontrolwidget.cpp \
     intrinsiccontrolwidget.cpp \
-    slidingcontrolwidget.cpp
+    slidingcontrolwidget.cpp \
+    extrinsicmatrixmodel.cpp
 
 HEADERS  += mainwindow.h \
     cameramatriceswidget.h \
@@ -29,7 +30,8 @@ HEADERS  += mainwindow.h \
     threedobject.h \
     extrinsiccontrolwidget.h \
     intrinsiccontrolwidget.h \
-    slidingcontrolwidget.h
+    slidingcontrolwidget.h \
+    extrinsicmatrixmodel.h
 
 macx:QMAKE_CXXFLAGS += -std=c++11
 

@@ -73,7 +73,7 @@ Eigen::Matrix3f Camera::intrinsic()
     return K;
 }
 
-Eigen::Matrix4f Camera::extrinsic()
+Eigen::Matrix4f Camera::extrinsic() const
 {
     Eigen::Vector3f C;
     C << -_x, -_y, -_z;
