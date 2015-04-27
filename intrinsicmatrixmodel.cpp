@@ -1,10 +1,9 @@
 #include <Eigen/Core>
 
-#include "camera.h"
 #include "intrinsicmatrixmodel.h"
 
 IntrinsicMatrixModel::IntrinsicMatrixModel(Camera *camera, QObject *parent)
-    : QAbstractTableModel(parent), _camera(camera)
+    : CameraMatrixModel(camera, parent)
 {
 
 }

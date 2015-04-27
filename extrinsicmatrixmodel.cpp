@@ -4,7 +4,7 @@
 #include "extrinsicmatrixmodel.h"
 
 ExtrinsicMatrixModel::ExtrinsicMatrixModel(Camera *camera, QObject *parent)
-    : QAbstractTableModel(parent), _camera(camera)
+    : CameraMatrixModel(camera, parent)
 {
 
 }
