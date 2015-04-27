@@ -14,8 +14,8 @@ MainWindow::MainWindow(QWidget *parent)
     _camera = new Camera;
 
     _cameraMatricesWidget = new CameraMatricesWidget(_camera);
-    _extrinsicControlWidget = new ExtrinsicControlWidget(_camera);
-    _intrinsicControlWidget = new IntrinsicControlWidget(_camera);
+    _extrinsicControlWidget = new ExtrinsicControlWidget(_camera, _cameraMatricesWidget);
+    _intrinsicControlWidget = new IntrinsicControlWidget(_camera, _cameraMatricesWidget);
 
     QWidget* widget = new QWidget;
 

@@ -1,4 +1,3 @@
-#include <QApplication>
 #include <QDebug>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -6,13 +5,14 @@
 #include <QVBoxLayout>
 
 #include "camera.h"
+#include "cameramatriceswidget.h"
 #include "extrinsiccontrolwidget.h"
 #include "slidingcontrolwidget.h"
 
 int const ExtrinsicControlWidget::SLIDER_STEPS = 200;
 
-ExtrinsicControlWidget::ExtrinsicControlWidget(Camera *camera, QWidget *parent)
-    : QWidget(parent), _camera(camera)
+ExtrinsicControlWidget::ExtrinsicControlWidget(Camera *camera, CameraMatricesWidget *cameraViewWidget, QWidget *parent)
+    : QWidget(parent), _camera(camera), _cameraViewWidget(cameraViewWidget)
 {
     QHBoxLayout* box = new QHBoxLayout;
     QVBoxLayout* boxPosition = new QVBoxLayout;
@@ -89,6 +89,8 @@ void ExtrinsicControlWidget::updateCameraPosition()
         _camera->setWorldPosition(x, y, z);
         _camera->setWorldOrientation(thetaX, thetaY, thetaZ);
 
-        QApplication::activeWindow()->update();
+        if (_cameraViewWidget) {
+            _cameraViewWidget->update();
+        }
     }
 }

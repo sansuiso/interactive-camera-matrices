@@ -1,12 +1,12 @@
-#include <QApplication>
 #include <QVBoxLayout>
 
 #include "camera.h"
+#include "cameramatriceswidget.h"
 #include "intrinsiccontrolwidget.h"
 #include "slidingcontrolwidget.h"
 
-IntrinsicControlWidget::IntrinsicControlWidget(Camera *camera, QWidget *parent)
-    : QWidget(parent), _camera(camera)
+IntrinsicControlWidget::IntrinsicControlWidget(Camera *camera, CameraMatricesWidget *cameraViewWidget, QWidget *parent)
+    : QWidget(parent), _camera(camera), _cameraViewWidget(cameraViewWidget)
 {
     QVBoxLayout* layout = new QVBoxLayout;
 
@@ -51,6 +51,8 @@ void IntrinsicControlWidget::updateCamera()
         _camera->setSkew(_skewWidget->value());
         _camera->setAspectRatio(_aspectRatioWidget->value());
 
-        QApplication::activeWindow()->update();
+        if (_cameraViewWidget) {
+            _cameraViewWidget->update();
+        }
     }
 }
