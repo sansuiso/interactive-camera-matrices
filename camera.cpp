@@ -102,7 +102,6 @@ Eigen::Matrix4f Camera::extrinsic() const
     extr.block(0, 0, 3, 3) = Rc;
     extr.block(0, 3, 3, 1) = C;
 
-    std::cerr << "Extrinsic = \n" << extr << std::endl;
     return extr;
 }
 
@@ -111,8 +110,6 @@ Eigen::Matrix4f Camera::glPerspective(float near, float far)
     Eigen::Matrix4f perspective = Eigen::Matrix4f::Zero();
 
     Eigen::Matrix3f K = intrinsic();
-
-    std::cerr << "K = \n" << K << std::endl;
 
     perspective(0,0) = K(0,0);
     perspective(1,1) = K(1,1);
@@ -125,8 +122,6 @@ Eigen::Matrix4f Camera::glPerspective(float near, float far)
 
     perspective(2,2) = near + far;
     perspective(2,3) = near*far;
-
-    std::cerr << "Perspective = \n" << perspective << std::endl;
 
     Eigen::Matrix4f NDC = Eigen::Matrix4f::Identity();
 
@@ -142,20 +137,7 @@ Eigen::Matrix4f Camera::glPerspective(float near, float far)
     NDC(1,3) = -(top + bottom)/(top - bottom);
     NDC(2,3) = -(far + near)/(far - near);
 
-    std::cerr << "NDC = \n" << NDC << std::endl;
-
     Eigen::Matrix4f P = NDC * perspective;
-
-    std::cerr << "P = \n" << P << std::endl;
-
-    Eigen::Vector4f X;
-    X << 0, 0, -1, 1;
-    X = P*X;
-    std::cerr << "PX = \t" << (X/(X(3))).transpose() << std::endl;
-
-    X << 1, 0, -1, 1;
-    X = P*X;
-    std::cerr << "PX(1) = \t" << (X/(X(3))).transpose() << std::endl;
 
     return P;
 }
