@@ -51,6 +51,8 @@ IntrinsicControlWidget::IntrinsicControlWidget(Camera *camera, CameraMatricesWid
     box->addWidget(tableView);
 
     this->setLayout(box);
+
+    connect(this, &IntrinsicControlWidget::cameraWasUpdated, [&](){ _cameraViewWidget->update();});
 }
 
 IntrinsicControlWidget::~IntrinsicControlWidget()
@@ -68,9 +70,5 @@ void IntrinsicControlWidget::updateCamera()
         _camera->setAspectRatio(_aspectRatioWidget->value());
 
         emit cameraWasUpdated();
-
-        if (_cameraViewWidget) {
-            _cameraViewWidget->update();
-        }
     }
 }

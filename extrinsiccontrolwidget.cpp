@@ -79,6 +79,8 @@ ExtrinsicControlWidget::ExtrinsicControlWidget(Camera *camera, CameraMatricesWid
     box->addWidget((tableView));
 
     this->setLayout(box);
+
+    connect(this, &ExtrinsicControlWidget::cameraWasUpdated, [&]() { _cameraViewWidget->update(); });
 }
 
 ExtrinsicControlWidget::~ExtrinsicControlWidget()
@@ -88,23 +90,19 @@ ExtrinsicControlWidget::~ExtrinsicControlWidget()
 
 void ExtrinsicControlWidget::updateCameraPosition()
 {
-    float x = _xSlidingWidget->value();
-    float y = _ySlidingWidget->value();
-    float z = _zSlidingWidget->value();
-
-    float thetaX = _thetaXSlidingWidget->value();
-    float thetaY = _thetaYSlidingWidget->value();
-    float thetaZ = _thetaZSlidingWidget->value();
-
-    emit cameraWasUpdated();
-
     if (_camera)
     {
+        float x = _xSlidingWidget->value();
+        float y = _ySlidingWidget->value();
+        float z = _zSlidingWidget->value();
+
+        float thetaX = _thetaXSlidingWidget->value();
+        float thetaY = _thetaYSlidingWidget->value();
+        float thetaZ = _thetaZSlidingWidget->value();
+
         _camera->setWorldPosition(x, y, z);
         _camera->setWorldOrientation(thetaX, thetaY, thetaZ);
 
-        if (_cameraViewWidget) {
-            _cameraViewWidget->update();
-        }
+        emit cameraWasUpdated();
     }
 }
