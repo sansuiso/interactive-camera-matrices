@@ -1,27 +1,34 @@
 #include "threedobject.h"
 
-static int const N_POINTS = 4;
 static float const Z = -10.0f;
+
+static GLfloat const SQUARE_DATA[] = {
+//    -0.5f,  0.5f, 0.0f,
+//    -0.5f, -0.5f, 0.0f,
+//     0.5f, -0.5f, 0.0f,
+
+//    -0.5f,  0.5f, 0.0f,
+//     0.5f, -0.5f, 0.0f,
+//     0.5f,  0.5f, 0.0f,
+
+    -0.5f,  0.5f, Z,
+    -0.5f, -0.5f, Z,
+     0.5f, -0.5f, Z,
+
+    -0.5f,  0.5f, Z,
+     0.5f, -0.5f, Z,
+     0.5f,  0.5f, Z,
+};
 
 ThreeDObject::ThreeDObject(QObject *parent) : QObject(parent)
 {
-    _data.resize(3*N_POINTS);
+    unsigned int npoints = sizeof(SQUARE_DATA)/sizeof(SQUARE_DATA[0]);
+    _data.resize(npoints);
 
-    _data[0] =  0.0f;
-    _data[1] = 1.0f;
-    _data[2] = Z;
-
-    _data[3] = -1.0f;
-    _data[4] = -1.0f;
-    _data[5] = Z;
-
-    _data[6] = 1.0f;
-    _data[7] = -1.0f;
-    _data[8] = Z;
-
-    _data[9] = 0;
-    _data[10] = 0;
-    _data[11] = 0.9*Z;
+    for (unsigned i = 0; i < npoints; ++i)
+    {
+        _data[i] = SQUARE_DATA[i];
+    }
 }
 
 ThreeDObject::~ThreeDObject()
