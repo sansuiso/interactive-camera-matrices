@@ -12,7 +12,7 @@ class ExtrinsicControlWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ExtrinsicControlWidget(Camera* camera, CameraMatricesWidget* cameraViewWidget = nullptr, QWidget *parent = 0);
+    explicit ExtrinsicControlWidget(Camera* camera, QWidget *parent = 0);
     ~ExtrinsicControlWidget();
 
 signals:
@@ -22,7 +22,6 @@ public slots:
 
 private:
     Camera* _camera;
-    CameraMatricesWidget* _cameraViewWidget;
 
     static int const SLIDER_STEPS;
 

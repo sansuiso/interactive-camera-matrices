@@ -9,8 +9,8 @@
 #include "intrinsicmatrixmodel.h"
 #include "slidingcontrolwidget.h"
 
-IntrinsicControlWidget::IntrinsicControlWidget(Camera *camera, CameraMatricesWidget *cameraViewWidget, QWidget *parent)
-    : QWidget(parent), _camera(camera), _cameraViewWidget(cameraViewWidget)
+IntrinsicControlWidget::IntrinsicControlWidget(Camera *camera, QWidget *parent)
+    : QWidget(parent), _camera(camera)
 {
     QHBoxLayout* box = new QHBoxLayout;
     QVBoxLayout* layout = new QVBoxLayout;
@@ -51,8 +51,6 @@ IntrinsicControlWidget::IntrinsicControlWidget(Camera *camera, CameraMatricesWid
     box->addWidget(tableView);
 
     this->setLayout(box);
-
-    connect(this, &IntrinsicControlWidget::cameraWasUpdated, [&](){ _cameraViewWidget->update();});
 }
 
 IntrinsicControlWidget::~IntrinsicControlWidget()

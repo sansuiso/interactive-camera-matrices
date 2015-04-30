@@ -12,7 +12,7 @@ class IntrinsicControlWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit IntrinsicControlWidget(Camera* camera, CameraMatricesWidget* cameraViewWidget = nullptr, QWidget *parent = 0);
+    explicit IntrinsicControlWidget(Camera* camera, QWidget *parent = 0);
     ~IntrinsicControlWidget();
 
 signals:
@@ -23,7 +23,6 @@ public slots:
 
 private:
     Camera* _camera;
-    CameraMatricesWidget* _cameraViewWidget;
 
     SlidingControlWidget* _focalWidget;
     SlidingControlWidget* _pixelSizeWidget;

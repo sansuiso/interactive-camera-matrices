@@ -13,8 +13,8 @@
 
 int const ExtrinsicControlWidget::SLIDER_STEPS = 200;
 
-ExtrinsicControlWidget::ExtrinsicControlWidget(Camera *camera, CameraMatricesWidget *cameraViewWidget, QWidget *parent)
-    : QWidget(parent), _camera(camera), _cameraViewWidget(cameraViewWidget)
+ExtrinsicControlWidget::ExtrinsicControlWidget(Camera *camera, QWidget *parent)
+    : QWidget(parent), _camera(camera)
 {
     QHBoxLayout* box = new QHBoxLayout;
     QVBoxLayout* boxPosition = new QVBoxLayout;
@@ -79,8 +79,6 @@ ExtrinsicControlWidget::ExtrinsicControlWidget(Camera *camera, CameraMatricesWid
     box->addWidget((tableView));
 
     this->setLayout(box);
-
-    connect(this, &ExtrinsicControlWidget::cameraWasUpdated, [&]() { _cameraViewWidget->update(); });
 }
 
 ExtrinsicControlWidget::~ExtrinsicControlWidget()

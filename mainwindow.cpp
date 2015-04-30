@@ -14,8 +14,13 @@ MainWindow::MainWindow(QWidget *parent)
     _camera = new Camera;
 
     _cameraMatricesWidget = new CameraMatricesWidget(_camera);
-    _extrinsicControlWidget = new ExtrinsicControlWidget(_camera, _cameraMatricesWidget);
-    _intrinsicControlWidget = new IntrinsicControlWidget(_camera, _cameraMatricesWidget);
+    _extrinsicControlWidget = new ExtrinsicControlWidget(_camera);
+    _intrinsicControlWidget = new IntrinsicControlWidget(_camera);
+
+    connect(_extrinsicControlWidget, &ExtrinsicControlWidget::cameraWasUpdated,
+            [&]() { _cameraMatricesWidget->update();} );
+    connect(_intrinsicControlWidget, &IntrinsicControlWidget::cameraWasUpdated,
+            [&]() { _cameraMatricesWidget->update();} );
 
     QWidget* widget = new QWidget;
 
