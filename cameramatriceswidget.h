@@ -42,6 +42,7 @@ private:
 
     int _extrinsicLoc;
     int _projectionMatrixLoc;
+    int _modelMatrixLoc;
 
     void buildProgram();
 

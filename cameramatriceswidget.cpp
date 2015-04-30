@@ -57,6 +57,10 @@ void CameraMatricesWidget::paintGL()
         _program->setUniformValue(_extrinsicLoc, _worldMatrix);
         _program->setUniformValue(_projectionMatrixLoc, _projectionMatrix);
 
+        QMatrix4x4 model;
+        model.setToIdentity();
+        _program->setUniformValue(_modelMatrixLoc, model);
+
 #ifdef DRAW_DEBUG
         glDrawArrays(GL_POINTS, 0, _scene.vertexCount());
 #else
@@ -89,9 +93,10 @@ void CameraMatricesWidget::buildProgram()
     _program->link();
 
     _program->bind();
-    _extrinsicLoc = _program->uniformLocation("extrinsic");
 
+    _extrinsicLoc = _program->uniformLocation("extrinsic");
     _projectionMatrixLoc = _program->uniformLocation("projection");
+    _modelMatrixLoc = _program->uniformLocation("model");
 
     _vao.create();
     QOpenGLVertexArrayObject::Binder vaoBinder(&_vao);
