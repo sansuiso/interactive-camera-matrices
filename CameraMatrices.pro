@@ -18,7 +18,6 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     cameramatriceswidget.cpp \
     camera.cpp \
-    threedobject.cpp \
     extrinsiccontrolwidget.cpp \
     intrinsiccontrolwidget.cpp \
     slidingcontrolwidget.cpp \
@@ -32,7 +31,6 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     cameramatriceswidget.h \
     camera.h \
-    threedobject.h \
     extrinsiccontrolwidget.h \
     intrinsiccontrolwidget.h \
     slidingcontrolwidget.h \
