@@ -115,4 +115,20 @@ void CameraMatricesWidget::populateScene()
     ModelInstance squareInstance(assets::squareAsset(0));
     squareInstance.moveTo(x, y, z);
     _instanceList.push_back(squareInstance);
+
+    ModelInstance topLeftSquare(assets::squareAsset(0));
+    topLeftSquare.moveTo(x-2.0, y+2.0, z);
+    _instanceList.push_back(topLeftSquare);
+
+    ModelInstance topRightSquare(assets::squareAsset(0));
+    topRightSquare.moveTo(x+2.0, y+2.0, z);
+    _instanceList.push_back(topRightSquare);
+
+    ModelInstance bottomLeftSquare(assets::squareAsset(0));
+    bottomLeftSquare.moveTo(x-2.0, y-2.0, z);
+    _instanceList.push_back(bottomLeftSquare);
+
+    ModelInstance bottomRightSquare(assets::squareAsset(0));
+    bottomRightSquare.moveTo(x+2.0, y-2.0, z);
+    _instanceList.push_back(bottomRightSquare);
 }
