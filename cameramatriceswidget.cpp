@@ -112,23 +112,25 @@ void CameraMatricesWidget::populateScene()
     qreal y = 0.0f;
     qreal z = -10.0f;
 
-    ModelInstance squareInstance(assets::squareAsset(0));
+    int vertexGeometry = _program->attributeLocation("vertex");
+
+    ModelInstance squareInstance(assets::squareAsset(vertexGeometry));
     squareInstance.moveTo(x, y, z);
     _instanceList.push_back(squareInstance);
 
-    ModelInstance topLeftSquare(assets::squareAsset(0));
+    ModelInstance topLeftSquare(assets::squareAsset(vertexGeometry));
     topLeftSquare.moveTo(x-2.0, y+2.0, z);
     _instanceList.push_back(topLeftSquare);
 
-    ModelInstance topRightSquare(assets::squareAsset(0));
+    ModelInstance topRightSquare(assets::squareAsset(vertexGeometry));
     topRightSquare.moveTo(x+2.0, y+2.0, z);
     _instanceList.push_back(topRightSquare);
 
-    ModelInstance bottomLeftSquare(assets::squareAsset(0));
+    ModelInstance bottomLeftSquare(assets::squareAsset(vertexGeometry));
     bottomLeftSquare.moveTo(x-2.0, y-2.0, z);
     _instanceList.push_back(bottomLeftSquare);
 
-    ModelInstance bottomRightSquare(assets::squareAsset(0));
+    ModelInstance bottomRightSquare(assets::squareAsset(vertexGeometry));
     bottomRightSquare.moveTo(x+2.0, y-2.0, z);
     _instanceList.push_back(bottomRightSquare);
 }
