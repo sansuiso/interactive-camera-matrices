@@ -49,6 +49,8 @@ private:
 
     std::list<ModelInstance> _instanceList;
     void populateScene();
+
+    void renderInstance(ModelInstance& instance) const;
 };
 
 #endif // CAMERAMATRICESWIDGET_H

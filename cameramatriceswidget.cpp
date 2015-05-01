@@ -59,14 +59,19 @@ void CameraMatricesWidget::paintGL()
 
         for (auto& instance : _instanceList)
         {
-            _program->setUniformValue(_modelMatrixLoc, *(instance.transform()));
-            glBindVertexArray(instance.asset()->vao);
-            glDrawArrays(instance.asset()->drawType, instance.asset()->drawStart, instance.asset()->drawCount);
-            glBindVertexArray(0);
+            renderInstance(instance);
         }
     }
 
     _program->release();
+}
+
+void CameraMatricesWidget::renderInstance(ModelInstance& instance) const
+{
+    _program->setUniformValue(_modelMatrixLoc, *(instance.transform()));
+    glBindVertexArray(instance.asset()->vao);
+    glDrawArrays(instance.asset()->drawType, instance.asset()->drawStart, instance.asset()->drawCount);
+    glBindVertexArray(0);
 }
 
 void CameraMatricesWidget::resizeGL(int width, int height)
