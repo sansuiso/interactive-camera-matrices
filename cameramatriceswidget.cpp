@@ -4,6 +4,7 @@
 
 #include "camera.h"
 #include "cameramatriceswidget.h"
+#include "modelassetsmanager.h"
 
 CameraMatricesWidget::CameraMatricesWidget(Camera *camera, QWidget *parent)
     : QOpenGLWidget(parent)
@@ -41,7 +42,6 @@ void CameraMatricesWidget::paintGL()
 
     _worldMatrix.setToIdentity();
 
-    QOpenGLVertexArrayObject::Binder vaoBinder(&_vao);
     _program->bind();
 
     if (_camera)
@@ -57,15 +57,13 @@ void CameraMatricesWidget::paintGL()
         _program->setUniformValue(_extrinsicLoc, _worldMatrix);
         _program->setUniformValue(_projectionMatrixLoc, _projectionMatrix);
 
-        QMatrix4x4 model;
-        model.setToIdentity();
-        _program->setUniformValue(_modelMatrixLoc, model);
-
-#ifdef DRAW_DEBUG
-        glDrawArrays(GL_POINTS, 0, _scene.vertexCount());
-#else
-        glDrawArrays(GL_TRIANGLES, 0, _scene.triangleCount());
-#endif
+        for (auto& instance : _instanceList)
+        {
+            _program->setUniformValue(_modelMatrixLoc, *(instance.transform()));
+            glBindVertexArray(instance.asset()->vao);
+            glDrawArrays(instance.asset()->drawType, instance.asset()->drawStart, instance.asset()->drawCount);
+            glBindVertexArray(0);
+        }
     }
 
     _program->release();
@@ -98,18 +96,18 @@ void CameraMatricesWidget::buildProgram()
     _projectionMatrixLoc = _program->uniformLocation("projection");
     _modelMatrixLoc = _program->uniformLocation("model");
 
-    _vao.create();
-    QOpenGLVertexArrayObject::Binder vaoBinder(&_vao);
-
-    _vbo.create();
-    _vbo.bind();
-
-    _vbo.allocate(_scene.data(), sizeof(GLfloat)*_scene.vertexCount());
-
-    QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
-    f->glEnableVertexAttribArray(0);
-    f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0);
-    _vbo.release();
+    populateScene();
 
     _program->release();
+}
+
+void CameraMatricesWidget::populateScene()
+{
+    qreal x = 0.0f;
+    qreal y = 0.0f;
+    qreal z = -10.0f;
+
+    ModelInstance squareInstance(assets::squareAsset(0));
+    squareInstance.moveTo(x, y, z);
+    _instanceList.push_back(squareInstance);
 }

@@ -1,12 +1,12 @@
 #ifndef CAMERAMATRICESWIDGET_H
 #define CAMERAMATRICESWIDGET_H
 
-#include <QOpenGLBuffer>
-#include <QOpenGLVertexArrayObject>
+#include <list>
+
 #include <QOpenGLWidget>
 #include <QMatrix4x4>
 
-#include "threedobject.h"
+#include "modelinstance.h"
 
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
 QT_FORWARD_DECLARE_CLASS(Camera)
@@ -33,8 +33,6 @@ private:
     Camera* _camera;
 
     QOpenGLShaderProgram* _program;
-    QOpenGLVertexArrayObject _vao;
-    QOpenGLBuffer _vbo;
 
     QMatrix4x4 _projectionMatrix;
     QMatrix4x4 _worldMatrix;
@@ -46,9 +44,11 @@ private:
 
     void buildProgram();
 
-    ThreeDObject _scene;
     float _near;
     float _far;
+
+    std::list<ModelInstance> _instanceList;
+    void populateScene();
 };
 
 #endif // CAMERAMATRICESWIDGET_H

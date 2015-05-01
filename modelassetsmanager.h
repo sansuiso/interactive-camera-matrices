@@ -3,12 +3,9 @@
 
 #include "modelasset.h"
 
-class ModelAssetsManager
+namespace assets
 {
-public:
-    ModelAssetsManager();
-
-    ModelAsset* squareAsset(GLuint vertexGeometryIndex);
-};
+ModelAsset* squareAsset(GLuint vertexGeometryIndex);
+}
 
 #endif // MODELASSETSMANAGER_H

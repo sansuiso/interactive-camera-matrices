@@ -1,7 +1,10 @@
 #ifndef MODELASSET_H
 #define MODELASSET_H
 
+#include <cstdlib>
 #include <gl3.h>
+
+using std::size_t;
 
 struct ModelAsset
 {

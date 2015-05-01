@@ -26,7 +26,8 @@ SOURCES += main.cpp\
     intrinsicmatrixmodel.cpp \
     cameramatrixmodel.cpp \
     modelasset.cpp \
-    modelassetsmanager.cpp
+    modelassetsmanager.cpp \
+    modelinstance.cpp
 
 HEADERS  += mainwindow.h \
     cameramatriceswidget.h \
@@ -39,7 +40,8 @@ HEADERS  += mainwindow.h \
     intrinsicmatrixmodel.h \
     cameramatrixmodel.h \
     modelasset.h \
-    modelassetsmanager.h
+    modelassetsmanager.h \
+    modelinstance.h
 
 macx:QMAKE_CXXFLAGS += -std=c++11
 

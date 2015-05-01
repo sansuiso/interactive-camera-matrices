@@ -2,6 +2,8 @@
 
 #include "modelassetsmanager.h"
 
+namespace assets {
+
 static GLfloat const SQUARE_DATA[] = {
     -0.5f,  0.5f, 0.0f,
     -0.5f, -0.5f, 0.0f,
@@ -12,12 +14,7 @@ static GLfloat const SQUARE_DATA[] = {
      0.5f,  0.5f, 0.0f,
 };
 
-ModelAssetsManager::ModelAssetsManager()
-{
-
-}
-
-ModelAsset* ModelAssetsManager::squareAsset(GLuint vertexGeometryIndex)
+ModelAsset* squareAsset(GLuint vertexGeometryIndex)
 {
     static ModelAsset* _sharedSquareAsset = nullptr;
 
@@ -37,3 +34,5 @@ ModelAsset* ModelAssetsManager::squareAsset(GLuint vertexGeometryIndex)
 
     return _sharedSquareAsset;
 }
+
+} // namespace assets
