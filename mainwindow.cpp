@@ -1,5 +1,5 @@
 #include <QTabWidget>
-#include <QVboxLayout>
+#include <QVBoxLayout>
 #include <QWidget>
 
 #include "camera.h"
