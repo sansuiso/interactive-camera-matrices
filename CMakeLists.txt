@@ -1,0 +1,34 @@
+cmake_minimum_required(VERSION 3.11)
+project(CameraMatrices VERSION 0.1.0 LANGUAGES CXX)
+
+# Qt handling
+set(CMAKE_AUTOMOC ON)
+find_package(Qt5 COMPONENTS Core Gui Widgets QUIET REQUIRED)
+
+# Other dependancies
+find_package(OpenGL REQUIRED)
+find_package(Eigen3 3.3 QUIET REQUIRED) 
+
+add_executable(CameraMatrices
+    main.cpp
+    mainwindow.cpp
+    cameramatriceswidget.cpp
+    cameramatrixmodel.cpp
+    extrinsiccontrolwidget.cpp
+    extrinsicmatrixmodel.cpp
+    intrinsiccontrolwidget.cpp
+    intrinsicmatrixmodel.cpp
+    modelasset.cpp
+    modelassetsmanager.cpp
+    modelinstance.cpp
+    slidingcontrolwidget.cpp
+    camera.cpp
+)
+
+target_link_libraries(CameraMatrices
+    Qt5::Core
+    Qt5::Gui
+    Qt5::Widgets
+    OpenGL::GL
+    Eigen3::Eigen
+)
