@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.11)
 project(CameraMatrices VERSION 0.1.0 LANGUAGES CXX)
 
+# C++ standard version handling
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 # Qt handling
 set(CMAKE_AUTOMOC ON)
 find_package(Qt5 COMPONENTS Core Gui Widgets QUIET REQUIRED)
