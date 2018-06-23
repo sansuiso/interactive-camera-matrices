@@ -4,6 +4,7 @@ project(CameraMatrices VERSION 0.1.0 LANGUAGES CXX)
 # Qt handling
 set(CMAKE_AUTOMOC ON)
 find_package(Qt5 COMPONENTS Core Gui Widgets QUIET REQUIRED)
+qt5_add_resources(QRCS core-profile.qrc)
 
 # Other dependancies
 find_package(OpenGL REQUIRED)
@@ -23,6 +24,7 @@ add_executable(CameraMatrices
     modelinstance.cpp
     slidingcontrolwidget.cpp
     camera.cpp
+    ${QRCS}
 )
 
 target_link_libraries(CameraMatrices
